@@ -37,11 +37,11 @@
                 </div>
             </div>
     </header>
-    <div <div
+    <div
         style="max-width: 400px; margin: 5rem auto; background: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
         <h2 style="text-align: center; margin-bottom: 1.5rem;">เข้าสู่ระบบแอดมิน</h2>
-        <form method="POST" action="{{ url_for('admin_login') }}">
-            <input type="password" name="password" placeholder="รหัสแอดมิน" required
+        <form method="post" action="{{ url_for('admin_login') }}">
+            <input type="password" id="admin_password" name="admin_password" placeholder="รหัสแอดมิน" required
                 style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 1rem;">
             <button type="submit"
                 style="width: 100%; background-color: #1d70b8; color: white; border: none; padding: 0.75rem; border-radius: 8px;">เข้าสู่ระบบ</button>

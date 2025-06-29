@@ -370,11 +370,13 @@ def challenge():
     points = user['points'] if user and user['points'] is not None else 0
 
     return render_template(
-        'challenge.html',
-        challenges=result,
-        is_admin=session.get('is_admin'),
-        points=points
-    )
+    'challenge.html',
+    challenges=result,
+    is_admin=session.get('is_admin'),
+    points=points
+)
+
+    
 
 
 
@@ -412,30 +414,19 @@ def add_challenge():
 
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
-    if 'username' not in session:
-        points = 0
-    else:
-        with get_db() as db:
-            points_row = db.execute("""
-                SELECT points FROM users WHERE username = ?
-            """, (session['username'],)).fetchone()
-            points = points_row['points'] if points_row else 0
-
     if request.method == 'POST':
-        # ตัวอย่างการตรวจสอบข้อมูล admin (แก้ตามจริง)
-        username = request.form.get('username')
-        password = request.form.get('password')
-
-        # ตรวจสอบ username/password admin ตามฐานข้อมูล
-        if username == 'admin' and password == 'adminpass':  # ตัวอย่าง
-            session['admin'] = True
-            flash('เข้าสู่ระบบ Admin เรียบร้อย', 'success')
-            return redirect(url_for('admin_dashboard'))  # แก้เป็นหน้าหลัก admin
-
+        password = request.form.get('admin_password')
+        if password == '12345':  # รหัสผ่านฟิกตรงนี้
+            session['is_admin'] = True
+            flash('เข้าสู่โหมดแอดมินแล้ว', 'success')
+            return redirect(url_for('challenge'))
         else:
-            flash('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง', 'danger')
+            flash('รหัสผ่านไม่ถูกต้อง', 'danger')
+            return redirect(url_for('admin_login'))
+    return render_template('admin_login.html')
 
-    return render_template('admin_login.html', points=points)
+
+
 
 @app.route('/admin-logout')
 def admin_logout():
