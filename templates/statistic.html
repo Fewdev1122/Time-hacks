@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <title>สถิติ - Timehack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='statistic.css') }}">
+
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="warp-con">
+      <div class="container">
+        <div class="logo">TimeHack</div>
+        <div class="menu">
+          <div class="menu-toggle" id="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <ul id="menu-list">
+            <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+            <li><a href="{{ url_for('challenge') }}">Challenge</a></li>
+            <li><a href="{{ url_for('statistic') }}">Graph</a></li>
+            <li><a href="{{ url_for('admin_login') }}">Admin</a></li>
+            <li><a href="{{ url_for('logout') }}" class="logout">Logout</a></li>
+            <li>
+              <p class="point-user">คะแนนรวมของคุณ: {{ points }} แต้ม</p>
+            </li>
+          </ul>
+        </div>
+      </div> <!-- <--- ปิด .container -->
+    </div> <!-- <--- ปิด .warp-con -->
+  </header>
+
+
+  <section class="con-chart">
+    <div class="box-chart">
+      <h2>เวลาที่ใช้กับแต่ละสกิล</h2>
+      <h3>สถิติประจำสัปดาห์ (เริ่มวันที่ {{ start_date }})</h3>
+
+      {% if data|length == 0 %}
+      <p>ยังไม่มีการบันทึกกิจกรรมในสัปดาห์นี้</p>
+      {% else %}
+      <canvas id="skillChart" width="300" height="100"></canvas>
+      <script>
+        const dataFromFlask = {{ data | tojson }};
+      </script>
+      <script src="{{ url_for('static', filename='chart.js') }}"></script>
+      {% endif %}
+    </div>
+    <script>
+      const toggleBtn = document.getElementById('menu-toggle');
+      const menuList = document.getElementById('menu-list');
+      toggleBtn?.addEventListener('click', () => {
+        menuList?.classList.toggle('show');
+      });
+    </script>
+</body>
+
+</html>

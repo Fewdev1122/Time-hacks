@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge - Timehack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='challenge.css') }}">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="warp-con">
+            <div class="container">
+                <div class="logo">TimeHack</div>
+                <div class="menu">
+                    <div class="menu-toggle" id="menu-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul id="menu-list">
+                        <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+                        <li><a href="{{ url_for('challenge') }}">Challenge</a></li>
+                        <li><a href="{{ url_for('statistic') }}">Graph</a></li>
+                        <li><a href="{{ url_for('admin_login') }}">Admin</a></li>
+                        <li><a href="{{ url_for('logout') }}" class="logout">Logout</a></li>
+                        <li>
+                            <p class="point-user">คะแนนรวมของคุณ: {{ points }} แต้ม</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    {% if session.get('is_admin') %}
+    <form action="{{ url_for('admin_logout') }}" method="GET" style="display: inline;">
+        <button type="submit" style="
+      background-color: #d9534f;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin: 1rem 0 0 1rem;
+    ">ออกจากระบบแอดมิน</button>
+    </form>
+    {% endif %}
+    <!-- Admin Add Challenge Form -->
+    {% if is_admin %}
+    <div class="admin-form-horizontal">
+        <form action="{{ url_for('add_challenge') }}" method="POST">
+            <input type="text" name="title" placeholder="ชื่อภารกิจ" required><br>
+            <textarea name="description" placeholder="รายละเอียด" style="resize: none;"></textarea><br>
+            <input type="text" name="skill" placeholder="ชื่อสกิล เช่น coding หรือ reading"><br>
+            <input type="number" name="target_minutes" placeholder="เป้าหมาย (นาที)" min="1" required><br>
+            <input type="number" name="points" placeholder="แต้มที่ได้รับ" min="1" required>
+            <button type="submit">เพิ่ม</button>
+        </form>
+    </div>
+    {% endif %}
+    {% if is_admin %}
+    <div class="challenge-list admin">
+        {% for ch in challenges %}
+        <div class="challenge-card {% if ch.completed %}completed{% endif %}">
+            <h3>
+                {{ ch.title }}
+                <form action="{{ url_for('delete_challenge', challenge_id=ch.id) }}" method="POST" class="inline-delete"
+                    onsubmit="return confirm('ลบภารกิจนี้?');">
+                    <button type="submit" class="delete-btn" title="ลบภารกิจ">ลบ</button>
+                </form>
+            </h3>
+            <p>{{ ch.description }}</p>
+            <p>แต้ม: {{ ch.points }}</p>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ ch.progress }}%"></div>
+            </div>
+            <p class="progress-text">{{ ch.progress }}% สำเร็จ</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% for ch in challenges %}
+    <div class="challenge-card {% if ch.completed %}completed{% endif %} ">
+        <h5 class="challenge-title">{{ ch.title }}</h5>
+        <p class="challenge-desc">{{ ch.description }}</p>
+        <p> แต้ม: {{ ch.points }}</p>
+
+
+        <div class="challenge-progress">
+            <div class="challenge-progress-bar" style="width: {{ ch.progress }}%;"></div>
+        </div>
+
+        {% if ch.completed %}
+        <span class="challenge-badge success">สำเร็จแล้ว</span>
+        {% else %}
+        <span class="challenge-badge">กำลังดำเนินการ</span>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <script src="{{ url_for('static', filename='challenge.js') }}"></script>
+</body>

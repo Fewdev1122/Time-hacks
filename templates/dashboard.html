@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Timehack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="warp-con">
+            <div class="container">
+                <div class="logo">TimeHack</div>
+                <div class="menu">
+                    <div class="menu-toggle" id="menu-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <ul id="menu-list">
+                        <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+                        <li><a href="{{ url_for('challenge') }}">Challenge</a></li>
+                        <li><a href="{{ url_for('statistic') }}">Graph</a></li>
+                        <li><a href="{{ url_for('admin_login') }}">Admin</a></li>
+                        <li><a href="{{ url_for('logout') }}" class="logout">Logout</a></li>
+                        <li>
+                            <p class="point-user">คะแนนรวมของคุณ: {{ points }} แต้ม</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ปุ่มสลับโหมดโฟกัส -->
+    <div class="focus-mode">
+        <div class="container-focus">
+            <div>
+                <button onclick="toggleFocusMode()" id="focusToggleBtn">Mode Focus</button>
+            </div>
+            <!-- กล่องแจ้งเตือน Flask -->
+        </div>
+        <div class="ms-box">
+            <div id="music-controls">
+                <button onclick="playMusic('brown_noise')">Brown Noise</button>
+                <button onclick="playMusic('rain')">rain</button>
+                <button onclick="playMusic('lofi')">Lofi</button>
+            </div>
+            <!-- <audio> tag -->
+            <audio id="bg-music" loop></audio>
+        </div>
+    </div>
+    <main class="con-sum">
+        <section class="time">
+            <div id="pomodoro">
+
+                <label>หัวเรื่อง/สกิลที่กำลังฝึก:
+                    <input type="text" id="task-title" placeholder="เช่น เขียนโค้ด, วาดรูป">
+                </label>
+
+                <p id="current-task" style="text-align:center; font-weight:bold;"></p>
+
+                <div style="display: flex; justify-content: center; gap: 2rem;">
+                    <div class="timer-boxes">
+                        <div>
+                            <h3>ทำงาน</h3>
+                            <p id="work-timer">25:00</p>
+                        </div>
+                        <div>
+                            <h3>พัก</h3>
+                            <p id="break-timer">05:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <label>เวลาทำงาน (นาที): <input type="number" id="work-time" value="25" min="1"></label><br>
+                <label>เวลาพัก (นาที): <input type="number" id="break-time" value="5" min="1"></label><br>
+
+                <button onclick="startWork()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24">
+                        <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5"
+                            d="M6.906 4.537A.6.6 0 0 0 6 5.053v13.894a.6.6 0 0 0 .906.516l11.723-6.947a.6.6 0 0 0 0-1.032z" />
+                    </svg></button>
+                <button onclick="pauseToBreak()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M6 16V8q0-.825.588-1.412T8 6h8q.825 0 1.413.588T18 8v8q0 .825-.587 1.413T16 18H8q-.825 0-1.412-.587T6 16" />
+                    </svg></button>
+                <button onclick="resetAll()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M12 20q-3.35 0-5.675-2.325T4 12t2.325-5.675T12 4q1.725 0 3.3.712T18 6.75V5q0-.425.288-.712T19 4t.713.288T20 5v5q0 .425-.288.713T19 11h-5q-.425 0-.712-.288T13 10t.288-.712T14 9h3.2q-.8-1.4-2.187-2.2T12 6Q9.5 6 7.75 7.75T6 12t1.75 4.25T12 18q1.7 0 3.113-.862t2.187-2.313q.2-.35.563-.487t.737-.013q.4.125.575.525t-.025.75q-1.025 2-2.925 3.2T12 20" />
+                    </svg></button>
+            </div>
+        </section>
+        <button id="toggle-todo">To Do List ></button>
+
+        <!-- กล่อง To Do List -->
+        <div class="to-do-list">
+            <div class="header">
+                <p>To Do List</p>
+                <button id="close-todo">✖</button>
+            </div>
+
+            <div class="inputUser">
+                <input type="text" id="user" placeholder="Note...">
+                <button id="ok">ADD</button>
+            </div>
+
+            <div class="user-data">
+                <ul class="data"></ul>
+            </div>
+        </div>
+
+    </main>
+    <div id="toast" class="toast hidden">
+        <p id="toast-message"></p>
+    </div>
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='timer.js') }}"></script>
+</body>
+
+</html>

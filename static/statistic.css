@@ -1,0 +1,127 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Kanit", sans-serif;
+}
+header {
+  background-color: #1d70b8;
+  display: flex;
+  height: 80px;
+  width: 100%;
+}
+.warp-con{
+    display: flex;
+    justify-content: center;
+    width: 100%;   
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  position: relative; /* สำคัญสำหรับเมนู absolute */
+}
+
+.logo {
+  font-size: 2rem;
+  color: #fff;
+  letter-spacing: 0.2rem;
+}
+
+.menu ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.menu ul li {
+  list-style: none;
+  margin-left: 2rem;
+}
+
+.menu ul li a {
+  text-decoration: none;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.menu ul li a:hover {
+  background-color: #0f4f86;
+}
+
+.menu ul li .logout {
+  background-color: rgb(155, 26, 26);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+.menu ul li .logout:hover {
+  background-color: rgb(110, 0, 0);
+}
+
+.con-chart{
+    margin: 2rem 1rem ;
+}
+
+
+.menu ul {
+  display: flex;
+}
+
+.menu ul.show {
+  display: flex;
+  flex-direction: column;
+  background-color: #1d70b8;
+  position: absolute;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  height: 3px;
+  width: 25px;
+  background: white;
+  margin-bottom: 4px;
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .menu ul {
+    display: none;
+    flex-direction: column;
+    background-color: #1d70b8;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    padding: 1rem 0;
+    z-index: 10;
+  }
+
+  .menu ul.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+}
+
+.menu ul li .point-user {
+  color: #fff;
+  background-color: #0f4f86;
+  padding: 0.1rem 0.5rem;
+  border-radius: 6px;
+}

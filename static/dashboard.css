@@ -1,0 +1,500 @@
+/* --- NAVBAR --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Kanit", sans-serif;
+}
+
+body {
+    background-color: #d1eeff;
+}
+
+header {
+    background-color: #1d70b8;
+    display: flex;
+    height: 80px;
+    width: 100%;
+}
+
+.warp-con {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+}
+
+.logo {
+    font-size: 2rem;
+    color: #fff;
+    letter-spacing: 0.2rem;
+}
+
+/* เมนูปกติ - desktop */
+.menu ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.menu ul li {
+    margin-left: 2rem;
+    list-style: none;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 0.5rem 0.5rem;
+    transition: 0.5s;
+    border-radius: 6px;
+}
+
+.menu ul li a:hover {
+    background-color: #0f4f86;
+}
+
+.menu ul li .logout {
+    background-color: rgb(155, 26, 26);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+}
+
+.menu ul li .logout:hover {
+    background-color: rgb(110, 0, 0);
+    transition: 0.5s;
+}
+
+.menu ul li .point-user {
+    color: #fff;
+    background-color: #0f4f86;
+    padding: 0.1rem 0.5rem;
+    border-radius: 6px;
+}
+
+/* ปุ่ม hamburger ซ่อนเมนูบน mobile */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    height: 3px;
+    width: 25px;
+    background: white;
+    margin-bottom: 4px;
+    border-radius: 2px;
+}
+
+/* Responsive: เมื่อหน้าจอเล็กกว่าหรือเท่ากับ 768px */
+@media (max-width: 768px) {
+    /* ซ่อนเมนูปกติ */
+    .menu ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #1d70b8;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        padding: 1rem 0;
+        z-index: 10;
+    }
+
+    /* แสดงเมนูเมื่อคลิก hamburger */
+    .menu ul.show {
+        display: flex;
+    }
+
+    /* รายการเมนูแบบแนวตั้ง */
+    .menu ul li {
+        margin: 0.5rem 0;
+        text-align: center;
+        margin-left: 0; /* เคลียร์ margin ซ้าย */
+    }
+
+    /* ปุ่ม hamburger แสดง */
+    .menu-toggle {
+        display: flex;
+    }
+
+    /* ตั้ง container ให้เป็น relative */
+    .container {
+        position: relative;
+    }
+
+    /* ปรับโลโก้ให้เล็กลง */
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    /* ปรับขนาดตัวอักษรเมนู */
+    .menu ul li a,
+    .menu ul li p.point-user {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        display: block;
+    }
+
+    /* ปรับปุ่ม logout ให้เต็มความกว้าง */
+    .menu ul li .logout {
+        padding: 0.75rem 0;
+        width: 100%;
+        border-radius: 0;
+    }
+}
+.container-focus,
+.ms-box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem auto;
+}
+#focusToggleBtn {
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+#focusToggleBtn:hover {
+    background-color: #d27800;
+}
+
+
+.focus-mode {
+    margin-top: 0.3rem;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    position: relative;
+    align-items: center;
+
+    .container-focus {
+        position: absolute;
+        right: 38px;
+    }
+
+    .ms-box {
+        position: absolute;
+        right: 170px;
+        height: 50px;
+    }
+}
+
+button#focusToggleBtn {
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button#focusToggleBtn:hover {
+    background-color: #d27800;
+}
+
+#music-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* เสียงเพลงพื้นหลัง */
+#music-controls button {
+    margin-left: 1.5rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    background-color: #2d89ef;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+#music-controls button:hover {
+    background-color: #1b66d1;
+}
+
+.time {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+#pomodoro {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 480px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#pomodoro {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 480px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Kanit', sans-serif;
+    text-align: center;
+}
+
+
+#pomodoro label {
+    font-size: 1rem;
+    display: block;
+    text-align: left;
+}
+
+#pomodoro input[type="text"],
+#pomodoro input[type="number"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+#pomodoro button {
+    background-color: #2d89ef;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    margin: 0.5rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#pomodoro button:hover {
+    background-color: #1b66d1;
+}
+
+.timer-boxes {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1rem 0;
+}
+
+.timer-boxes div h3 {
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.timer-boxes div p {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #111;
+}
+
+
+.con-sum {}
+
+.to-do-list {
+    position: fixed;
+    top: 0;
+    left: -320px;
+    /* ซ่อนเริ่มต้น */
+    width: 300px;
+    height: 100vh;
+    background: #ffffff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+.to-do-list.show {
+    left: 0;
+    /* แสดงเมื่อมี class show */
+}
+
+.to-do-list .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#toggle-todo {
+    position: fixed;
+    top: 80px;
+    left: 10px;
+    z-index: 1100;
+    margin: 1.5rem 0.5rem;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    border: none;
+    background-color: rgb(45, 137, 239);
+    color: #fff;
+    font-size: 16px;
+}
+
+#close-todo {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+/* ซ่อนปุ่ม */
+#toggle-todo.hidden {
+    display: none;
+}
+
+
+.wrap-list {
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+}
+
+.to-do-list {
+    margin-top: 80px;
+}
+
+.header p {
+    font-size: 20px;
+}
+
+input#user {
+    margin-top: 0.5rem;
+    width: 220px;
+    height: 40px;
+    font-size: 16px;
+    padding-left: 0.5rem;
+    border-radius: 8px 0 0 8px;
+    border: 1px solid rgb(132, 132, 132);
+
+}
+
+.inputUser {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#ok {
+    margin-top: 0.5rem;
+    background-color: #2d89ef;
+    color: #fff;
+    border: none;
+    width: 50px;
+    height: 40px;
+    border-radius: 0 8px 8px 0;
+}
+
+.user-data {
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.user-data::-webkit-scrollbar {
+    width: 6px;
+}
+
+.user-data::-webkit-scrollbar-thumb {
+    background-color: #aaa;
+    border-radius: 3px;
+}
+
+.user-data ul li {
+    margin-top: 10px;
+    list-style: none;
+    font-size: 16px;
+    border: 1px solid rgb(132, 132, 132);
+    border-radius: 8px;
+    padding: 0.5rem;
+    transition: all 0.75s ease;
+    color: rgb(94, 94, 94);
+    ;
+    list-style: none;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    position: relative;
+    padding-right: 2rem;
+}
+
+.user-data ul li button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    background: none;
+    border: none;
+    color: rgb(132, 132, 132);
+    cursor: pointer;
+
+}
+
+.done {
+    background-color: rgb(39, 202, 123);
+    color: rgb(255, 255, 255);
+
+}
+
+.del {
+    display: none;
+}
+
+.done {
+    text-decoration: line-through;
+    color: rgb(255, 255, 255);
+}
+
+.delete-btn {
+    margin-left: 10px;
+    background: red;
+    color: rgb(132, 132, 132);
+    border: none;
+    cursor: pointer;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #323232;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.toast.show {
+  opacity: 1;
+}
+
