@@ -21,7 +21,8 @@ app.config.update(
 API_KEY = "H2fktarAnLlNSuZjSzrs3ba3AWiZshu4"
 
 
-DATABASE = '/Users/phumiphat/users.db'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # จะได้ path ของโฟลเดอร์ที่ไฟล์นี้อยู่ (คือ Time-hack)
+DATABASE = os.path.join(BASE_DIR, 'users.db')
 
 def get_db():
     conn = sqlite3.connect(DATABASE)
@@ -423,6 +424,7 @@ def admin_login():
         else:
             flash('รหัสผ่านไม่ถูกต้อง', 'danger')
             return redirect(url_for('admin_login'))
+        
     return render_template('admin_login.html')
 
 
