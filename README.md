@@ -10,7 +10,6 @@ AI-powered productivity platform developed during Super AI Engineer Season 5.
 - Face Detection Monitoring
 
 ## Tech Stack
-- React
 - Flask
 - SQLite
 
